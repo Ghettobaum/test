@@ -5,7 +5,6 @@ exports.arraysAnswers = {
     for (let i = 0; i < arr.length; i++){
       if (arr[i] === item) {
         return i;
-        break;
       }
     }
     return -1;
@@ -20,11 +19,30 @@ exports.arraysAnswers = {
   },
 
   remove: function(arr, item) {
+    var ret = [];
 
+    for (var i = 0, len = arr.length; i < len; i++) {
+      if (arr[i] !== item) {
+        ret.push(arr[i]);
+      }
+    }
+
+    return ret;
   },
 
   removeWithoutCopy: function(arr, item) {
+    var i;
+    var len;
 
+    for (i = 0, len = arr.length; i < len; i++) {
+      if (arr[i] === item) {
+        arr.splice(i, 1);
+        i--;
+        len--;
+      }
+    }
+
+    return arr;
   },
 
   append: function(arr, item) {
@@ -34,11 +52,7 @@ exports.arraysAnswers = {
 
   truncate: function(arr) {
     arr.pop();
-
-    
-
     return arr;
-    
   },
 
   prepend: function(arr, item) {
@@ -66,14 +80,23 @@ exports.arraysAnswers = {
   },
 
   duplicates: function(arr) {
-
+    return arr
+    .filter((item, index) => arr.indexOf(item) !== index)
+    .filter((item, index, self) => self.indexOf(item) === index);
   },
 
   square: function(arr) {
-
+    return arr.map(Element => Element*Element);
   },
 
-  findAllOccurrences: function(arr, target) {
 
-  }
+  findAllOccurrences: function(arr, target) {
+    const indices = [];
+    arr.forEach((item, index) => {
+      if (item === target) {
+        indices.push(index);
+      }
+    });
+    return indices;
+  } 
 };
